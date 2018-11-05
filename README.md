@@ -1,0 +1,1 @@
+# This a script to setup my windows machine from scratch!
