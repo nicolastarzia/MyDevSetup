@@ -27,7 +27,8 @@ $packagesNames = @(
     "python2",
     "git.install --params ""/GitAndUnixToolsOnPath /NoGitLfs /SChannel /NoAutoCrlf""",
     "cmder",
-    "dotnetcore-sdk"
+    "dotnetcore-sdk",
+    "nodejs.install"
 )
 
 foreach ($app in $packagesNames){
