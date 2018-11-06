@@ -26,7 +26,8 @@ $packagesNames = @(
     "anki",
     "python2",
     "git.install --params ""/GitAndUnixToolsOnPath /NoGitLfs /SChannel /NoAutoCrlf""",
-    "cmder"
+    "cmder",
+    "dotnetcore-sdk"
 )
 
 foreach ($app in $packagesNames){
