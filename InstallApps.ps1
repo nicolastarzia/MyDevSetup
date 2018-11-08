@@ -1,52 +1,37 @@
-#Exec windows-dev-toolbox / winfull + web
+Disable-UAC
 
-function Write-Regedit { # Thanks Scripting Guy
-    param (
-        [string]$registryPath,
-        [string]$Name,
-        [string]$value
-    )
-    IF((Test-Path $registryPath))
-    {
-        New-ItemProperty -Path $registryPath -Name $name -Value $value `
-        -PropertyType DWORD -Force | Out-Null}
+
+# Get the base URI path from the ScriptToCall value
+
+$bstrappackage = "-bootstrapPackage"
+$helperUri = $Boxstarter['ScriptToCall']
+$strpos = $helperUri.IndexOf($bstrappackage)
+$helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
+$helperUri = $helperUri.TrimStart("'", " ")
+$helperUri = $helperUri.TrimEnd("'", " ")
+$helperUri = $helperUri.Substring(0, $helperUri.LastIndexOf("/"))
+$helperUri += "/scripts"
+write-host "[x.x] helper script base URI is $helperUri [x.x]" -ForegroundColor Yellow -BackgroundColor Blue
+
+function executeScript {
+    Param ([string]$script)
+    write-host "executing $helperUri/$script ..."
+	iex ((new-object net.webclient).DownloadString("$helperUri/$script"))
 }
 
-$packagesNames = @(
-    "gpg4win",
-    "sysinternals",
-    "thunderbird",
-    "vim",
-    "golang",
-    "evernote",
-    "postman",
-    "hugo",
-    "1password",
-    "firacode",
-    "anki",
-    "python2",
-    "git.install --params ""/GitAndUnixToolsOnPath /NoGitLfs /SChannel /NoAutoCrlf""",
-    "cmder",
-    "dotnetcore-sdk",
-    "nodejs.install"
-)
-
-foreach ($app in $packagesNames){
-    $installCommand = "choco install -y $app"
-    Invoke-Expression $installCommand
-}
+Write-Host "[x.x] Installing softwares [x.x]" -ForegroundColor Yellow -BackgroundColor Blue
+executeScript "FileExplorerSettings.ps1";
+executeScript "RemoveDefaultApps.ps1";
+executeScript "ChocoPackages.ps1";
 
 
-#Clear old stuffs (desktop shortcuts, and cleanmgr)
-
-Remove-Item ~/Desktop/*
-Write-Regedit "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "TaskbarSmallIcons" "1" #Small icons on taskbar
-Write-Regedit "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" "PeopleBand" "0" #Remove people from taskbar
-
-
-Write-Host 'Starting CleanMgr.exe...'
+Write-Host '[x.x] Starting CleanMgr.exe...[x.x]' -ForegroundColor Yellow -BackgroundColor Blue
 Start-Process -FilePath CleanMgr.exe -ArgumentList '/sagerun:1' -WindowStyle Hidden -Wait
 
-Write-Host 'Waiting for CleanMgr and DismHost processes. Second wait neccesary as CleanMgr.exe spins off separate processes.'
+Write-Host '[x.x] Waiting for CleanMgr and DismHost processes. Second wait neccesary as CleanMgr.exe spins off separate processes. [x.x]' -ForegroundColor Yellow -BackgroundColor Blue
 Get-Process -Name cleanmgr,dismhost -ErrorAction SilentlyContinue | Wait-Process
 
+
+Enable-UAC
+Enable-MicrosoftUpdate
+Install-WindowsUpdate -acceptEula
