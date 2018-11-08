@@ -19,6 +19,11 @@ function executeScript {
 	iex ((new-object net.webclient).DownloadString("$helperUri/$script"))
 }
 
+$computername = "cc-4477"
+if ($env:computername -ne $computername) {
+	Rename-Computer -NewName $computername
+}
+
 Write-Host "[x.x] Installing softwares [x.x]" -ForegroundColor Yellow -BackgroundColor Blue
 executeScript "FileExplorerSettings.ps1";
 executeScript "RemoveDefaultApps.ps1";

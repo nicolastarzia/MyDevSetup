@@ -14,7 +14,7 @@ function removeApp {
 	Param ([string]$appName)
 	Write-Output "Trying to remove $appName"
 	Get-AppxPackage $appName -AllUsers | Remove-AppxPackage
-	Get-AppXProvisionedPackage -Online | Where DisplayNam -like $appName | Remove-AppxProvisionedPackage -Online
+	Get-AppXProvisionedPackage -Online | Where-Object DisplayNam -like $appName | Remove-AppxProvisionedPackage -Online
 }
 
 $applicationList = @(
