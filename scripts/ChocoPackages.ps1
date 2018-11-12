@@ -23,7 +23,8 @@ $packagesNames = @(
     "postman",
     "1password",
     "hugo",
-    "gpg4win"
+    "gpg4win",
+    "Office365ProPlus"
 )
 
 foreach ($app in $packagesNames){
