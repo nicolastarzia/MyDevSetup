@@ -16,10 +16,10 @@ write-host "[x.x] helper script base URI is $helperUri [x.x]" -ForegroundColor Y
 function executeScript {
     Param ([string]$script)
     write-host "executing $helperUri/$script ..."
-	iex ((new-object net.webclient).DownloadString("$helperUri/$script"))
+	Invoke-Expression ((new-object net.webclient).DownloadString("$helperUri/$script"))
 }
 
-$computername = "cc-4477"
+$computername = "thire" #Star Wars!!!
 if ($env:computername -ne $computername) {
 	Rename-Computer -NewName $computername
 }
@@ -28,6 +28,7 @@ Write-Host "[x.x] Installing softwares [x.x]" -ForegroundColor Yellow -Backgroun
 executeScript "FileExplorerSettings.ps1";
 executeScript "RemoveDefaultApps.ps1";
 executeScript "ChocoPackages.ps1";
+executeScript "VimConfig.ps1";
 
 
 Write-Host '[x.x] Starting CleanMgr.exe...[x.x]' -ForegroundColor Yellow -BackgroundColor Blue
