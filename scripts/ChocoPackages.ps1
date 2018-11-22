@@ -18,6 +18,7 @@ $packagesNames = @(
     "cmder",
     "firacode",
     "7zip.install",
+    "autohotkey.install",
     "thunderbird",
     "rambox",
     "anki",
