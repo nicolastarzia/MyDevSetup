@@ -29,6 +29,7 @@ executeScript "FileExplorerSettings.ps1";
 executeScript "RemoveDefaultApps.ps1";
 executeScript "ChocoPackages.ps1";
 executeScript "VimConfig.ps1";
+executeScript "TodoistConfig.ps1";
 
 
 Write-Host '[x.x] Starting CleanMgr.exe...[x.x]' -ForegroundColor Yellow -BackgroundColor Blue

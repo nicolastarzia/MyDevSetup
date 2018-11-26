@@ -23,6 +23,7 @@ $packagesNames = @(
     "rambox",
     "anki",
     "evernote",
+    "todoist",
     "postman",
     "1password",
     "hugo",
