@@ -1,31 +1,35 @@
-set nocompatible
+"set nocompatible
 filetype off
-
 set rtp+=$HOME/_vimfiles/bundle/Vundle.vim/
 call vundle#begin('$HOME/_vimfiles/bundle/')
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'dracula/vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'https://tpope.io/vim/speeddating.git'
+Plugin 'w0rp/ale'
+Plugin 'valloric/youcompleteme'
+Plugin 'wakatime/vim-wakatime'
 call vundle#end()
 filetype plugin indent on
 syntax on
-if !has("gui_running")
-        set term=xterm
-        set t_Co=256
-        let &t_AB="\e[48;5;%dm"
-        let &t_AF="\e[38;5;%dm"
-        colorscheme dracula
-endif
-map <C-o> :NERDTreeToggle<CR>
+set term=xterm
+set t_Co=256
+set termencoding=utf8
+let &t_AB="\e[48;5;%dm"
+let &t_AF="\e[38;5;%dm"
+colorscheme dracula
+map <C-o> :NERDTreeFocus<CR>
 set number
 set relativenumber
 set encoding=utf-8
 set laststatus=2
-set tabstop=2
 set eb
 set expandtab
+set shiftwidth=2
+set tabstop=2
 set hlsearch
 set ignorecase
 set incsearch
@@ -36,6 +40,16 @@ set colorcolumn=100
 set cursorline
 set termguicolors
 set noshowmode
-let g:airline_symbols_ascii=1
-"let g:airline_powerline_fonts = 1
-"set guifont=Fira\ Code\ Medium:h9
+set ff=unix "Salvar com CRLF ao inves de LF
+"Corrigir o backspace no ConEmu
+set bs=2
+inoremap <Char-0x07F> <BS>
+nnoremap <Char-0x07F> <BS>
+"Corrigir o backspace no ConEmu
+let g:airline_powerline_fonts = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
